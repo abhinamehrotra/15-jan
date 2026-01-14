@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday !!</title>
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+    text-align: center;
+    color: #fff;
+}
+h1 { font-size: 3rem; margin-top: 30px; }
+.slideshow {
+    width: 280px; height: 280px;
+    margin: 30px auto;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 6px solid #fff;
+    box-shadow: 0 0 20px rgba(255,255,255,0.7);
+    position: relative;
+}
+.slideshow img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    position: absolute; top:0; left:0;
+    opacity: 0; transition: opacity 1s ease-in-out;
+}
+.slideshow img.active { opacity: 1; }
+.message {
+    max-width: 80%; margin: auto;
+    font-size: 1.2rem; line-height: 1.8rem;
+    margin-top: 20px;
+    background: rgba(255,255,255,0.2);
+    padding: 20px; border-radius: 15px;
+    backdrop-filter: blur(6px);
+}
+ /* Celebrate Button */
+    #celebrateBtn {
+        padding: 12px 25px;
+        font-size: 20px;
+        background: #ffcc00;
+        color: #000;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        margin-top: 40px;
+        font-weight: bold;
+    }
+
+    /* Confetti Canvas */
+    #confettiCanvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+    }
+audio { margin-top: 30px; }
+</style>
+</head>
+<body>
+<h1>Happy Birthday Vanshika 🎉💖</h1>
+<div class="slideshow">
+    <img src="pic11.jpeg" class="active">
+    <img src="pic12.jpeg">
+    <img src="pic13.jpeg">
+    <img src="pic14.jpeg">
+</div>
+
+<div class="message">
+	Happy Birthday, Vanshika ! 🎉✨<br><br> Tum officially meri dost ho, par dil se main tumhe hamesha apni behen maanta hoon 🤍 Tumhari mehnat, tumhari maturity aur tumhara positive attitude hamesha mujhe inspire karta hai. Aaj tumhara birthday bhi hai aur saath hi tumhari new job joining bhi—isse better celebration ho hi nahi sakta 🎂💼 Congratulations on this new beginning, I’m really proud of you 🌟 Yeh job sirf ek start hai, aage tumhare liye growth, success aur endless opportunities wait kar rahi hain 🚀 Hamesha khud pe believe rakhna, apne dreams ke peeche poori strength ke saath jaana aur kabhi khud ko kam mat samajhna 💪✨ Chahe future mein kuch bhi ho, tumhara yeh bhai hamesha tumhare saath khada rahega 🤗💙 Once again, happy birthday to someone truly special! 🎂✨💞 and all the best for your amazing future 🌸😊
+    You make every moment brighter and every memory sweeter. 💫<br><br>
+</div>
+
+<audio controls autoplay loop>
+    <source src="music2.mp3" type="audio/mpeg">
+</audio>
+<h2>Press the Button to Celebrate 🎉</h2>
+<button id="celebrateBtn">Celebrate 🎉</button>
+<canvas id="confettiCanvas"></canvas>
+<script>
+let slides = document.querySelectorAll('.slideshow img');
+let index = 0;
+function showSlide() {
+    slides.forEach(img => img.classList.remove('active'));
+    slides[index].classList.add('active');
+    index = (index + 1) % slides.length;
+}
+showSlide();
+setInterval(showSlide, 3000);
+
+    const button = document.getElementById("celebrateBtn");
+    const canvas = document.getElementById("confettiCanvas");
+    const ctx = canvas.getContext("2d");
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    function randomConfetti() {
+        const colors = ["#ff0000", "#00ff00", "#0000ff", "#ff00ff", "#ffff00"];
+        let confetti = [];
+
+        for (let i = 0; i < 150; i++) {
+            confetti.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height - canvas.height,
+                r: Math.random() * 6 + 2,
+                color: colors[Math.floor(Math.random() * colors.length)],
+                speed: Math.random() * 3 + 2,
+            });
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            confetti.forEach((p) => {
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                ctx.fillStyle = p.color;
+                ctx.fill();
+
+                p.y += p.speed;
+                if (p.y > canvas.height) {
+                    p.y = -10;
+                }
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+    }
+
+    button.addEventListener("click", randomConfetti);
+</script>
+
+</body>
+</html>
